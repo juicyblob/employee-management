@@ -1,0 +1,35 @@
+:root {
+  --color-blue: #4F48ED;
+  --color-bg: #F5F6FA;
+  --color-white: #FFFFFF;
+  --color-dark: #110F36;
+  --color-gray: #9e9eae;
+  --color-light-gray: #EFEFEF;
+  --color-silver: #EAEAEA;
+  --color-yellow: #FFBE1A;
+  --color-green: #66B436;
+  --color-red: #F95317;
+  --font-family: "Onest", sans-serif;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-bg);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+

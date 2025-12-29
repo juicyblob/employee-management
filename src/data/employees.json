@@ -1,0 +1,200 @@
+[
+  {
+    "name": "Владимир Осташенок",
+    "birthday": "15.02.1982",
+    "position": "Генеральный директор",
+    "salary": 320000,
+    "photo": "https://onlyketch.github.io/ems_data/images/ostashenok.png",
+    "email": "ostashenok@company.ru",
+    "department": "heads"
+  },
+  {
+    "name": "Николай Рябов",
+    "birthday": "07.06.1992",
+    "position": "Java-разработчик",
+    "salary": 170000,
+    "photo": "https://onlyketch.github.io/ems_data/images/ryabov.png",
+    "email": "ryabov@company.ru",
+    "department": "programmers"
+  },
+  {
+    "name": "Екатерина Аксенова",
+    "birthday": "10.11.1998",
+    "position": "Менеджер по продажам",
+    "salary": 140000,
+    "photo": "https://onlyketch.github.io/ems_data/images/aksenova.png",
+    "email": "aksenova@company.ru",
+    "department": "managers"
+  },
+  {
+    "name": "Алексей Святов",
+    "birthday": "15.03.1987",
+    "position": "Графический дизайнер",
+    "salary": 120000,
+    "photo": "https://onlyketch.github.io/ems_data/images/svyatov.png",
+    "email": "svyatov@company.ru",
+    "department": "designers"
+  },
+  {
+    "name": "Денис Роженков",
+    "birthday": "11.02.1989",
+    "position": "Backend-разработчик",
+    "salary": 150000,
+    "photo": "https://onlyketch.github.io/ems_data/images/rozhenkov.png",
+    "email": "rozhenkov@company.ru",
+    "department": "programmers"
+  },
+  {
+    "name": "Мария Колесникова",
+    "birthday": "24.04.2001",
+    "position": "Менеджер по продажам",
+    "salary": 135000,
+    "photo": "https://onlyketch.github.io/ems_data/images/kolesnikova.png",
+    "email": "kolesnikova@company.ru",
+    "department": "managers"
+  },
+  {
+    "name": "Павел Смирнов",
+    "birthday": "25.01.1995",
+    "position": "Product-менеджер",
+    "salary": 162000,
+    "photo": "https://onlyketch.github.io/ems_data/images/smirnov.png",
+    "email": "smirnov@company.ru",
+    "department": "managers"
+  },
+  {
+    "name": "Александр Дивеев",
+    "birthday": "17.03.1988",
+    "position": "Frontend-разработчик",
+    "salary": 150000,
+    "photo": "https://onlyketch.github.io/ems_data/images/diveev.png",
+    "email": "diveev@company.ru",
+    "department": "programmers"
+  },
+  {
+    "name": "Кристина Шевцова",
+    "birthday": "20.10.1996",
+    "position": "Продуктовый дизайнер",
+    "salary": 140000,
+    "photo": "https://onlyketch.github.io/ems_data/images/shevcova.png",
+    "email": "shevcova@company.ru",
+    "department": "designers"
+  },
+  {
+    "name": "Вячеслав Митин",
+    "birthday": "09.05.1989",
+    "position": "Менеджер по продажам",
+    "salary": 174000,
+    "photo": "https://onlyketch.github.io/ems_data/images/mitin.png",
+    "email": "mitin@company.ru",
+    "department": "managers"
+  },
+  {
+    "name": "Ольга Панчина",
+    "birthday": "21.09.1986",
+    "position": "Старший директор",
+    "salary": 240000,
+    "photo": "https://onlyketch.github.io/ems_data/images/panchina.png",
+    "email": "panchina@company.ru",
+    "department": "heads"
+  },
+  {
+    "name": "Анна Сеничева",
+    "birthday": "08.06.1999",
+    "position": "Менеджер по продажам",
+    "salary": 130000,
+    "photo": "https://onlyketch.github.io/ems_data/images/senicheva.png",
+    "email": "senicheva@company.ru",
+    "department": "managers"
+  },
+  {
+    "name": "Валерия Завадская",
+    "birthday": "26.02.1994",
+    "position": "Дизайнер презентаций",
+    "salary": 150000,
+    "photo": "https://onlyketch.github.io/ems_data/images/zavadskaya.png",
+    "email": "zavadskaya@company.ru",
+    "department": "designers"
+  },
+  {
+    "name": "Дмитрий Рожко",
+    "birthday": "10.11.1992",
+    "position": "Java-тестировщик",
+    "salary": 120000,
+    "photo": "https://onlyketch.github.io/ems_data/images/rozhko.png",
+    "email": "rozhko@company.ru",
+    "department": "programmers"
+  },
+  {
+    "name": "Вадим Гладков",
+    "birthday": "04.12.1991",
+    "position": "Frontend-разработчик",
+    "salary": 160000,
+    "photo": "https://onlyketch.github.io/ems_data/images/gladkov.png",
+    "email": "gladkov@company.ru",
+    "department": "programmers"
+  },
+  {
+    "name": "Марина Щукина",
+    "birthday": "13.07.2003",
+    "position": "Product-менеджер",
+    "salary": 120000,
+    "photo": "https://onlyketch.github.io/ems_data/images/shukina.png",
+    "email": "shukina@company.ru",
+    "department": "managers"
+  },
+  {
+    "name": "Андрей Матвеев",
+    "birthday": "18.11.2001",
+    "position": "Bitrix-разработчик",
+    "salary": 180000,
+    "photo": "https://onlyketch.github.io/ems_data/images/matveev.png",
+    "email": "matveev@company.ru",
+    "department": "programmers"
+  },
+  {
+    "name": "Антон Проскуренко",
+    "birthday": "12.10.1985",
+    "position": "Старший директор",
+    "salary": 250000,
+    "photo": "https://onlyketch.github.io/ems_data/images/proskurenko.png",
+    "email": "proskurenko@company.ru",
+    "department": "heads"
+  },
+  {
+    "name": "Денис Юминов",
+    "birthday": "25.05.1992",
+    "position": "UI/UX-дизайнер",
+    "salary": 145000,
+    "photo": "https://onlyketch.github.io/ems_data/images/uminov.png",
+    "email": "uminov@company.ru",
+    "department": "designers"
+  },
+  {
+    "name": "Надежда Панченко",
+    "birthday": "13.09.1980",
+    "position": "Старший директор",
+    "salary": 200000,
+    "photo": "https://onlyketch.github.io/ems_data/images/panchenko.png",
+    "email": "panchenko@company.ru",
+    "department": "heads"
+  },
+  {
+    "name": "Руслан Катуар",
+    "birthday": "19.05.1992",
+    "position": "Менеджер по продажам",
+    "salary": 120000,
+    "photo": "https://onlyketch.github.io/ems_data/images/katuar.png",
+    "email": "katuar@company.ru",
+    "department": "managers"
+  },
+  {
+    "name": "Сергей Епистратоф",
+    "birthday": "10.10.1989",
+    "position": "UI/UX-дизайнер",
+    "salary": 140000,
+    "photo": "https://onlyketch.github.io/ems_data/images/epistratof.png",
+    "email": "epistratov@company.ru",
+    "department": "designers"
+  }
+]
