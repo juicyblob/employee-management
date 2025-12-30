@@ -22,8 +22,9 @@ const { photo, name, position, mail } = defineProps<{
             <div class="category__card-name">{{ name }}</div>
             <div class="category__card-position">{{ position }}</div>
         </div>
-        <IconMail class="category__card-mail"/>
-        <div class="category__card-tooltip">{{ mail }}</div>
+        <a :href="`mailto:${mail}`" target="_blank" class="category__card-mail">
+            <IconMail />
+        </a>
     </div>
 </template>
 
@@ -84,12 +85,9 @@ const { photo, name, position, mail } = defineProps<{
 
         &-mail {
             position: absolute;
+            text-decoration: none;
             top: 18px;
             right: 18px;
-        }
-
-        &-tooltip {
-            visibility: hidden;
         }
     }
 </style>
