@@ -8,11 +8,6 @@
 
     onMounted(async () => {
         await store.fetchCategories();
-        if (router.currentRoute.value.path == '/') {
-            if (store.categories) {
-                router.push(`/${store.categories[0]?.alias}`);
-            }
-        }
     });
 </script>
 
@@ -21,7 +16,7 @@
         <RouterLink
         exact-active-class="active"
         class="categories__link" 
-        :to="`/${cat.alias}`"
+        :to="`/employees/${cat.alias}`"
         v-for="cat in store.categories"
         :key="cat.id"
         >

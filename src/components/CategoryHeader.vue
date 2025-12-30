@@ -11,7 +11,7 @@
     });
 
     const alias = computed(() => {
-        return route.path.replace('/', '');
+        return route.path.replace('/employees/', '');
     });
 
     const counter = computed(() => store.categoryStats?.[alias.value]);

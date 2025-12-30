@@ -8,9 +8,9 @@ export const router = createRouter({
             name: 'loading'
         },
         {
-           path: '/:alias',
+           path: '/employees/:alias',
            component: () => import('./views/MainView.vue'),
-           name: 'main'
+           name: 'employees'
         },
     ],
     history: createWebHistory(),

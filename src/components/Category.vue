@@ -11,13 +11,13 @@ const store = useEmployeeStore();
 const route = useRoute();
 
 onMounted( async () => {
-    const alias = route.path.replace('/', '');
+    const alias = route.path.replace('/employees/', '');
     await store.fetchEmployees('all');
     await store.getEmpoyeesByAlias(alias);
 });
 
 const alias = computed(() => {
-    return route.path.replace('/', '');
+    return route.path.replace('/employees/', '');
 });
 
 watch(alias, async (newAlias) => {
