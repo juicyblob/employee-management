@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { useEmployeeStore } from '../stores/employee.store';
-import Button from './Button.vue';
-import { computed, onMounted, watch } from 'vue';
+import Button from './ButtonDefault.vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import CategoryCard from './CategoryCard.vue';
 import CategoryFilters from './CategoryFilters.vue';
 import CategoryHeader from './CategoryHeader.vue';
+import Employee from './Employee.vue';
 
 const store = useEmployeeStore();
 const route = useRoute();
+const showEmployeeDetails = ref<boolean>(false);
 
 onMounted( async () => {
     const alias = route.path.replace('/employees/', '');
@@ -24,10 +26,15 @@ watch(alias, async (newAlias) => {
     await store.getEmpoyeesByAlias(newAlias);
 });
 
+async function selectEmployee(id: number) {
+    await store.getEmployeeById(id);
+    showEmployeeDetails.value = true;
+}
+
 </script>
 
 <template>
-    <div class="category">
+    <div class="category" v-if="!showEmployeeDetails">
         <CategoryHeader />
         <div class="category__buttons">
             <Button text="Выгрузить в Excel" color="blue" txt-color="white"/>
@@ -36,24 +43,24 @@ watch(alias, async (newAlias) => {
         <div class="category__employees">
             <CategoryFilters />
             <div class="category__cards">
-                <CategoryCard 
+                <CategoryCard
                 v-for="employee in store.categoryEmployees"
                 :key="employee.id"
                 :photo="employee.photo"
                 :name="employee.name"
                 :position="employee.position"
                 :mail="employee.email"
+                :id="employee.id ?? 0"
+                @select-employee="selectEmployee"
                 />
             </div>
         </div>
     </div>
+    <Employee v-else :employee="store.selectEmployee" @backward="() => showEmployeeDetails = false"/>
 </template>
 
 <style scoped lang="scss">
     .category {
-        padding: 137px 60px 150px 60px;
-        
-
         &__buttons {
             display: flex;
             justify-content: flex-end;

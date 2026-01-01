@@ -1,10 +1,8 @@
 <script setup lang="ts">
     import { onMounted } from 'vue';
     import { useCategoryStore } from '../stores/category.store';
-    import { useRouter } from 'vue-router';
 
     const store = useCategoryStore();
-    const router = useRouter();
 
     onMounted(async () => {
         await store.fetchCategories();

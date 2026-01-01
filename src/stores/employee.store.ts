@@ -8,9 +8,19 @@ import employeesData from '../data/employees.json';
 import { USER_ID_KEY } from '../utils/constants';
 
 export const useEmployeeStore = defineStore('employee', () => {
+    const emptyEmloyee = {
+        name: '',
+        birthday: '',
+        position: '',
+        salary: 10000,
+        photo: '',
+        email: '',
+        department: ''
+    }
     const employees = ref<Employee[]>([]);
     const categoryEmployees = ref<Employee[]>([]);
     const currentSort = ref<string>('date');
+    const selectEmployee = ref<Employee>(emptyEmloyee);
 
     watch(currentSort, async (newCurrentSort) => {
         await setEmloyeesSort(newCurrentSort);
@@ -24,6 +34,8 @@ export const useEmployeeStore = defineStore('employee', () => {
             }
         });
         employees.value = data;
+        selectEmployee.value = data[0] ?? emptyEmloyee;
+        
     }
 
     async function getEmpoyeesByAlias(alias: string) {
@@ -34,6 +46,14 @@ export const useEmployeeStore = defineStore('employee', () => {
                 categoryEmployees.value = employees.value?.filter((employee) => employee.department === alias);
             }
         }
+    }
+
+    async function getEmployeeById(id: number) {
+        const employee = employees.value.find((employee) => employee.id == id);
+        if (!employee) {
+            throw new Error(`Сотрудник с ID ${id} не найден`);
+         }
+        selectEmployee.value = employee;
     }
 
     async function setEmloyeesSort(sort: string) {
@@ -66,5 +86,5 @@ export const useEmployeeStore = defineStore('employee', () => {
         
     }
 
-    return { employees, fetchEmployees, uploadDemoEmployees, getEmpoyeesByAlias, categoryEmployees, currentSort }
+    return { employees, categoryEmployees, currentSort, selectEmployee, fetchEmployees, uploadDemoEmployees, getEmpoyeesByAlias, getEmployeeById }
 });

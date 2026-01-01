@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import IconMail from '../assets/svg/IconMail.vue';
 
-const { photo, name, position, mail } = defineProps<{
+const { id, photo, name, position, mail } = defineProps<{
+    id: number,
     photo: string,
     name: string,
-    position: string;
-    mail: string;
+    position: string,
+    mail: string,
+}>();
+
+const emit = defineEmits<{
+    'select-employee': [id: number],
 }>();
 
 const onlineStatus = Math.floor(Math.random() * 10) + 1 <= 7 ? 'online' : 'offline';
@@ -13,7 +18,7 @@ const onlineStatus = Math.floor(Math.random() * 10) + 1 <= 7 ? 'online' : 'offli
 </script>
 
 <template>
-    <div class="category__card">
+    <div class="category__card" @click="emit('select-employee', id)">
         <div class="category__card-photo">
             <div class="category__card-image">
                 <img :src="photo" alt="Ошибка загрузки">
@@ -37,6 +42,7 @@ const onlineStatus = Math.floor(Math.random() * 10) + 1 <= 7 ? 'online' : 'offli
         border: 1px solid var(--color-light-gray);
         border-radius: 8px;
         padding: 46px 0;
+        cursor: pointer;
 
         &-photo {
            position: relative;

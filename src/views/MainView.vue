@@ -19,7 +19,9 @@
         </div>
         <div class="dashboard__content">
             <Search />
-            <Category />
+            <div class="dashboard__content-body">
+                <Category />
+            </div>
         </div>
     </div>
 </template>
@@ -48,6 +50,10 @@
             width: 80%;
             margin-left: 20%;
             height: 100%;
+
+            &-body {
+                 padding: 137px 60px 80px 60px;
+            }
         }
     }
 </style>
