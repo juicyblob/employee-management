@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
+import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 import { useEmployeeStore } from '../stores/employee.store';
 import Button from './ButtonDefault.vue';
 import { computed, onMounted, ref, watch } from 'vue';
@@ -16,6 +16,11 @@ onMounted( async () => {
     const alias = route.path.replace('/employees/', '');
     await store.fetchEmployees('all');
     await store.getEmpoyeesByAlias(alias);
+});
+
+onBeforeRouteUpdate((_to, _from, next) => {
+    showEmployeeDetails.value = false;
+    next();
 });
 
 const alias = computed(() => {
@@ -56,7 +61,7 @@ async function selectEmployee(id: number) {
             </div>
         </div>
     </div>
-    <Employee v-else :employee="store.selectEmployee" @backward="() => showEmployeeDetails = false"/>
+    <Employee v-else :employee="store.selectEmployee" @backward="() => showEmployeeDetails"/>
 </template>
 
 <style scoped lang="scss">

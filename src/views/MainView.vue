@@ -5,7 +5,6 @@
   import Search from '../components/Search.vue';
   import Version from '../components/Version.vue';
 
-
 </script>
 
 <template>
@@ -36,6 +35,7 @@
             left: 0;
             bottom: 0;
             width: 20%;
+            max-width: 380px;
             padding: 72px 0 72px 3.6%;
             background-color: var(--color-blue);
 
