@@ -2,13 +2,74 @@
     import { useRoute, useRouter } from 'vue-router';
     import ButtonDefault from './ButtonDefault.vue';
     import { ref } from 'vue';
+    import type { Employee } from '../interfaces/employee.interface';
+    import type { FormErrors } from '../interfaces/errors.interface';
+    import { useEmployeeStore } from '../stores/employee.store';
 
     const router = useRouter();
     const route = useRoute();
+    const store = useEmployeeStore();
     const department = ref(route.params.alias);
+    const employeeData = ref<Employee>({
+        name: '',
+        birthday: '',
+        position: '',
+        salary: 0,
+        photo: '',
+        email: '',
+        department: String(department.value),
+    });
+    const errors = ref<FormErrors>({});
 
+    function validateForm() {
+        errors.value = {};
+        
+        // Имя и фамилия
+        const nameRegExp = /^[А-Яа-яЁё]+\s[А-Яа-яЁё]+$/;
+        if (!nameRegExp.test(employeeData.value.name)) {
+            errors.value.name = 'Имя и фамилия заполнены некорректно';
+        }
+        // Дата рождения
+        const birthRegExp = /^\d{2}\.\d{2}\.\d{4}$/;
+        if (!birthRegExp.test(employeeData.value.birthday)) {
+            errors.value.birthday = 'Неверный формат даты';
+        }
+        // Должность
+        if (employeeData.value.position == '') {
+            errors.value.position = 'Не указана должность';
+        }
+        // Ставка
+        if (employeeData.value.salary <= 0) {
+            errors.value.salary = 'Не корректная ставка';
+        }
+        // Ссылка на фото
+        if (employeeData.value.photo == '') {
+            errors.value.photo = 'Не указана ссылка на фото';
+        }
+        // Email
+        const emailRegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegExp.test(employeeData.value.email)) {
+            errors.value.email = 'Неккоректный email';
+        }
 
-    function saveEmployee() {}
+        return Object.keys(errors.value).length === 0;
+    }
+
+    async function saveEmployee() {
+        if (!validateForm()) {
+            //показываем ошибки
+            for (let error of Object.values(errors.value)) {
+                console.log(error);
+            }
+            return;
+        }
+        // Отправка данных
+        store.createEmployee(employeeData.value);
+        const alias = route.params.alias;
+        await store.fetchEmployees('all');
+        await store.getEmpoyeesByAlias(String(alias));
+        router.push({ name: 'employee-list', params: { alias: alias}});
+    }
 
     function goBack() {
         router.go(-1);
@@ -22,34 +83,94 @@
         <form class="employee__form" @submit.prevent="saveEmployee">
         <div class="employee__form-row">
             <div class="employee__form-group">
-                <label for="employee_name" class="employee__form-label">Имя и фамилия</label>
-                <input type="text" class="employee__form-input" id="employee_name">
+                <label for="employee_name" 
+                class="employee__form-label" 
+                :class="errors.name ? 'error': ''">
+                Имя и фамилия
+                <div class="employee__form-error">!</div>
+                </label>
+                <input 
+                type="text" 
+                class="employee__form-input" 
+                id="employee_name"
+                v-model="employeeData.name"
+                >
             </div>
         </div>
         <div class="employee__form-row">
             <div class="employee__form-group">
-                <label for="employee_birthday" class="employee__form-label">Дата рождения</label>
-                <input type="text" class="employee__form-input" id="employee_birthday">
+                <label for="employee_birthday" 
+                class="employee__form-label" 
+                :class="errors.birthday ? 'error': ''">
+                Дата рождения (дд.мм.гггг)
+                <div class="employee__form-error">!</div>
+                </label>
+                <input 
+                type="text" 
+                class="employee__form-input" 
+                id="employee_birthday"
+                v-model="employeeData.birthday"
+                >
             </div>
         </div>
         <div class="employee__form-row">
             <div class="employee__form-group">
-                <label for="employee_position" class="employee__form-label">Должность</label>
-                <input type="text" class="employee__form-input" id="employee_position">
+                <label for="employee_position" 
+                class="employee__form-label" 
+                :class="errors.position ? 'error': ''">
+                Должность
+                <div class="employee__form-error">!</div>
+                </label>
+                <input 
+                type="text" 
+                class="employee__form-input" 
+                id="employee_position"
+                v-model="employeeData.position"
+                >
             </div>
             <div class="employee__form-group">
-                <label for="employee_salary" class="employee__form-label">Ставка/мес</label>
-                <input type="text" class="employee__form-input" id="employee_salary">
+                <label for="employee_salary" 
+                class="employee__form-label" 
+                :class="errors.salary ? 'error': ''">
+                Ставка/мес
+                <div class="employee__form-error">!</div>
+                </label>
+                <input 
+                type="number" 
+                class="employee__form-input" 
+                id="employee_salary"
+                v-model="employeeData.salary"
+                >
             </div>
         </div>
         <div class="employee__form-row">
             <div class="employee__form-group">
-                <label for="employee_photo" class="employee__form-label">Ссылка на фото</label>
-                <input type="text" class="employee__form-input" id="employee_photo">
+                <label for="employee_photo" 
+                class="employee__form-label" 
+                :class="errors.photo ? 'error': ''">
+                Ссылка на фото
+                <div class="employee__form-error">!</div>
+                </label>
+                <input 
+                type="url" 
+                class="employee__form-input" 
+                id="employee_photo"
+                v-model="employeeData.photo"
+                >
             </div>
             <div class="employee__form-group">
-                <label for="employee_mail" class="employee__form-label">Email</label>
-                <input type="text" class="employee__form-input" id="employee_mail">
+                <label for="employee_mail" 
+                class="employee__form-label" 
+                :class="errors.email ? 'error': ''">
+                Email
+                <div class="employee__form-error">!</div>
+                </label>
+                <input 
+                type="email" 
+                class="employee__form-input" 
+                id="employee_mail"
+                v-model="employeeData.email"
+                >
             </div>
         </div>
         <div class="employee__form-row">
@@ -65,7 +186,7 @@
             </div>
         </div>
         <div class="employee__form-buttons">
-            <ButtonDefault text="Сохранить" color="yellow" txt-color="dark" />
+            <ButtonDefault type="submit" text="Сохранить" color="yellow" txt-color="dark" />
             <ButtonDefault text="Отмена" color="red" txt-color="white" @click="goBack" />
         </div>
         </form>       
@@ -100,6 +221,9 @@
             }
 
             &-label {
+                display: flex;
+                align-items: center;
+                gap: 8px;
                 font-size: 14px;
                 line-height: 14px;
                 color: var(--color-label);
@@ -129,6 +253,25 @@
                 align-items: center;
                 gap: 24px;
                 justify-content: flex-end;
+            }
+
+            &-error {
+                visibility: hidden;
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: var(--color-red);
+                font-weight: 800;
+                font-size: 12px;
+                line-height: 12px;
+                color: var(--color-white);
+            }
+
+            &-label.error &-error {
+                visibility: visible;
             }
 
         }

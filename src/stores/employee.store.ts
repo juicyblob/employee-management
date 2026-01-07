@@ -86,5 +86,33 @@ export const useEmployeeStore = defineStore('employee', () => {
         
     }
 
-    return { employees, categoryEmployees, currentSort, selectEmployee, fetchEmployees, uploadDemoEmployees, getEmpoyeesByAlias, getEmployeeById }
+    async function createEmployee(person: Employee) {
+        await axios.post<Employee>(API_ROUTES.employees, {
+            name: person.name,
+            birthday: person.birthday,
+            position: person.position,
+            salary: person.salary,
+            photo: person.photo,
+            email: person.email,
+            department: person.department
+        })
+        .then(() => {
+            console.log('Сотрудник успешно добавлен!');
+        })
+        .catch((err) => {
+            console.error('Ошибка создания сотрудника: ' + err.message)
+        });
+    }
+
+    async function deleteEmployee(id: number) {
+        await axios.delete(`${API_ROUTES.employees}/${id}`)
+        .then(() => {
+            console.log('Сотрудник успешно удален');
+        })
+        .catch((err) => {
+            console.error('Ошибка удаления сотрудника :' + err.message);
+        });
+    }
+
+    return { employees, categoryEmployees, currentSort, selectEmployee, fetchEmployees, uploadDemoEmployees, getEmpoyeesByAlias, getEmployeeById, createEmployee, deleteEmployee }
 });

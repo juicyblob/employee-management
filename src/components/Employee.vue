@@ -2,8 +2,12 @@
 import { computed } from 'vue';
 import type { Employee } from '../interfaces/employee.interface';
 import Button from './ButtonDefault.vue';
+import { useEmployeeStore } from '../stores/employee.store';
+import { useRoute } from 'vue-router';
 
 const { employee } = defineProps<{ employee: Employee}>();
+const store = useEmployeeStore();
+const route = useRoute();
 
 const emit = defineEmits<{
     (e: 'backward'): void
@@ -39,6 +43,14 @@ function calcEmployeeExpirience(hireDate: string) {
                 return 'лет';
         }
     }
+}
+
+async function removeEmployee() {
+    await store.deleteEmployee(employee.id ?? 0);
+    const alias = route.params.alias;
+    await store.fetchEmployees('all');
+    await store.getEmpoyeesByAlias(String(alias));
+    emit('backward');
 }
 
 const employeeData = computed(() => {
@@ -102,7 +114,7 @@ const employeeData = computed(() => {
             </div>
             <div class="employee__buttons">
                 <Button text="Редактировать" color="yellow" txt-color="dark" />
-                <Button text="Удалить" color="red" txt-color="white" />
+                <Button text="Удалить" color="red" txt-color="white" @click="removeEmployee" />
             </div>
         </div>
     </div>
