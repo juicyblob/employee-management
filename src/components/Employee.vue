@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import type { Employee } from '../interfaces/employee.interface';
 import Button from './ButtonDefault.vue';
 import { useEmployeeStore } from '../stores/employee.store';
 import { useRoute } from 'vue-router';
+import PopUpConfirm from './PopUpConfirm.vue';
 
 const { employee } = defineProps<{ employee: Employee}>();
 const store = useEmployeeStore();
 const route = useRoute();
+const popUpIsOpened = ref<boolean>(false);
 
 const emit = defineEmits<{
     (e: 'backward'): void
@@ -84,6 +86,29 @@ const employeeData = computed(() => {
     ]
 });
 
+let scrollbarWidth = 0;
+
+function lockScroll() {
+  scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+  document.body.style.paddingRight = `${scrollbarWidth}px`
+  document.body.style.overflow = 'hidden'
+}
+
+function unlockScroll() {
+  document.body.style.paddingRight = ''
+  document.body.style.overflow = ''
+}
+
+function popUpOpen() {
+    lockScroll();
+    popUpIsOpened.value = true;
+}
+
+function popUpClose() {
+    unlockScroll();
+    popUpIsOpened.value = false;
+}
+
 </script>
 
 <template>
@@ -114,18 +139,29 @@ const employeeData = computed(() => {
             </div>
             <div class="employee__buttons">
                 <Button text="Редактировать" color="yellow" txt-color="dark" />
-                <Button text="Удалить" color="red" txt-color="white" @click="removeEmployee" />
+                <Button text="Удалить" color="red" txt-color="white" @click="popUpOpen" />
             </div>
         </div>
     </div>
+    <PopUpConfirm 
+    :open="popUpIsOpened"
+    title="Вы собираетесь удалить сотрудника:"
+    :has-name="true"
+    :name="employee.name"
+    text="Подтверждаете удаление?"
+    @cancel="popUpClose"
+    @ok="removeEmployee"
+    />
 </template>
 
 <style scoped lang="scss">
     .employee {
+        border: 1px solid var(--color-light-gray);
         border-radius: 16px;
         padding: 46px;
         background-color: var(--color-white);
         color: var(--color-dark);
+        width: 100%;
         
 
         &__head {
