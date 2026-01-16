@@ -1,5 +1,8 @@
 <script setup lang="ts">
+    import { useArchiveStore } from '../stores/archive.store';
 import { useEmployeeStore } from '../stores/employee.store';
+
+    const { mode } = defineProps<{ mode: 'category' | 'archive' }>();
 
     const filters = [
         { name: 'По дате', query: 'date'},
@@ -7,7 +10,7 @@ import { useEmployeeStore } from '../stores/employee.store';
         { name: 'По окладу', query: 'salary'}
     ];
 
-    const store = useEmployeeStore();
+    const store = mode == 'category' ? useEmployeeStore() : useArchiveStore();
 
     function changeSort(query: string) {
         store.currentSort = query;

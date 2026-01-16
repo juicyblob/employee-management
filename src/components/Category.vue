@@ -54,7 +54,7 @@ function openAddForm() {
             <Button text="Добавить сотрудника" color="yellow" txt-color="dark" @click="openAddForm" />
         </div>
         <div class="category__employees">
-            <CategoryFilters />
+            <CategoryFilters mode="category"/>
             <div class="category__cards">
                 <CategoryCard
                 v-for="employee in storeEmployee.categoryEmployees"

@@ -6,7 +6,8 @@ import { API_ROUTES } from "../api";
 
 export const useCategoryStore = defineStore('category', () => {
     const categories = ref<Category[]>();
-    const categoryStats = ref();
+    type counters = Record<string, number>;
+    const categoryStats = ref<counters>();
 
     async function fetchCategories() {
         const { data } = await axios.get<Category[]>(API_ROUTES.categories);

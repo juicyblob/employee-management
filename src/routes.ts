@@ -38,6 +38,17 @@ export const router = createRouter({
                 }
             }
            ]
+        },
+        {
+          path: '/employees/archive',
+          component: () => import('./views/MainView.vue'),
+          children: [
+            {
+                path: '',
+                component: () => import('./components/Archive.vue'),
+                name: 'archive' 
+            }
+          ]  
         }
     ],
     history: createWebHistory(),
