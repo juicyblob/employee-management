@@ -9,6 +9,8 @@ export const useArchiveStore = defineStore('archive', () => {
 
     const employees = ref<Employee[]>([]);
     const currentSort = ref<string>('date');
+    const selectEmloyeeId = ref<number>(0);
+    const selectEmployeeDepartment = ref<string>('');
 
     watch(currentSort, async (newSort) => {
         await setEmployeesSort(newSort);
@@ -43,6 +45,10 @@ export const useArchiveStore = defineStore('archive', () => {
         }        
     }
 
-    return { employees, currentSort, fetchEmployees }
+    async function restoreEmployee(id: number) {
+        await axios.post(`${API_ROUTES.archive}/${id}/restore`);
+    }
+
+    return { employees, currentSort, selectEmloyeeId, selectEmployeeDepartment, fetchEmployees, restoreEmployee }
 
 });

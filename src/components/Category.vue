@@ -79,6 +79,8 @@ function openAddForm() {
 
 <style scoped lang="scss">
     .category {
+        padding-bottom: 80px;
+        
         &__buttons {
             display: flex;
             justify-content: flex-end;

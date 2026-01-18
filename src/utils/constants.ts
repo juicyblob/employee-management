@@ -7,5 +7,10 @@ export const notifications = {
         added: 'Ошибка при добавлении сотрудника',
         removed: 'Ошибка при удалении сотрудника',
         edited: 'Ошибка при редактировании сотрудника'
+    },
+    archive: {
+        restore: 'Сотрудник восстановлен из архива',
+        removed: 'Сотрудник удален из архива'
     }
 }
+export type ModalAction = 'restore' | 'remove';

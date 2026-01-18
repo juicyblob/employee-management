@@ -27,7 +27,6 @@ function goToAll() {
     .not-found {
         max-width: 420px;
         text-align: center;
-        //margin: 0 auto;
         position: relative;
         top: 50%;
         left: 50%;

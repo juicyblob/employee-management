@@ -93,26 +93,22 @@ const employeeData = computed(() => {
     ]
 });
 
-function lockScroll() {
-  document.body.style.overflow = 'hidden';
-}
-
-function unlockScroll() {
-  document.body.style.overflow = '';
+function openEditForm() {
+    router.push({ name: 'employee-edit' });
 }
 
 function popUpOpen() {
-    lockScroll();
+    document.body.style.overflow = 'hidden';
     popUpIsOpened.value = true;
 }
 
 function popUpClose() {
-    unlockScroll();
+    document.body.style.overflow = '';
     popUpIsOpened.value = false;
 }
 
-function openEditForm() {
-    router.push({ name: 'employee-edit' });
+function unlockScroll() {
+    document.body.style.overflow = '';
 }
 
 </script>

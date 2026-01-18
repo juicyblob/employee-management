@@ -1,15 +1,32 @@
 <script setup lang="ts">
 import IconMail from '../assets/svg/IconMail.vue';
+import type { ModalAction } from '../utils/constants';
 import ButtonCard from './ButtonCard.vue';
 
-const { id, photo, name, position, mail } = defineProps<{
+const { id, photo, name, position, mail, department } = defineProps<{
     id: number,
     photo: string,
     name: string,
     position: string,
     mail: string,
+    department: string
 }>();
 
+const emit = defineEmits<{
+    'open-popup': [title: string, text: string, name: string, mode: ModalAction, id: number, department: string]
+}>();
+
+function restoreEmit() {
+    let title = 'Восстановление сотрудника:';
+    let text = 'Подтверждаете восстановление?';
+    emit('open-popup', title, text, name, 'restore', id, department);
+}
+
+function removeEmit() {
+    let title = 'Удаление сотрудника из архива:';
+    let text = 'Подтверждаете удаление?';
+    emit('open-popup', title, text, name, 'remove', id, department);
+}
 
 </script>
 
@@ -23,8 +40,16 @@ const { id, photo, name, position, mail } = defineProps<{
             <div class="archive__card-position">{{ position }}</div>
         </div>
         <div class="archive__card-buttons">
-            <ButtonCard text="Восстановить" color="green" />
-            <ButtonCard text="Удалить" color="red" />
+            <ButtonCard 
+            text="Восстановить" 
+            color="green"
+            @click="restoreEmit" 
+            />
+            <ButtonCard 
+            text="Удалить" 
+            color="red" 
+            @click="removeEmit"
+            />
         </div>
         <a :href="`mailto:${mail}`" target="_blank" class="archive__card-mail">
             <IconMail />
