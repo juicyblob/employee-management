@@ -12,7 +12,7 @@ export const router = createRouter({
             redirect: '/employees/all'
         },
         {
-           path: '/employees/:alias',
+           path: '/employees/:alias(all|heads|designers|programmers|managers)',
            component: () => import('./views/MainView.vue'),
            name: 'employees',
            children: [
@@ -49,6 +49,17 @@ export const router = createRouter({
                 name: 'archive' 
             }
           ]  
+        },
+        {
+            path: '/:pathMatch(.*)*',
+            component: () => import('./views/MainView.vue'),
+            children: [
+                {
+                    path: '',
+                    component: () => import('./components/NotFound.vue'),
+                    name: 'notFound'
+                }
+            ]
         }
     ],
     history: createWebHistory(),
