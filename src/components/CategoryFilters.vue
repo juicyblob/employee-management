@@ -1,8 +1,8 @@
 <script setup lang="ts">
     import { useArchiveStore } from '../stores/archive.store';
-import { useEmployeeStore } from '../stores/employee.store';
+    import { useEmployeeStore } from '../stores/employee.store';
 
-    const { mode } = defineProps<{ mode: 'category' | 'archive' }>();
+    const { mode, isDisabled = false } = defineProps<{ mode: 'category' | 'archive', isDisabled?: boolean }>();
 
     const filters = [
         { name: 'По дате', query: 'date'},
@@ -25,6 +25,7 @@ import { useEmployeeStore } from '../stores/employee.store';
         v-for="filter in filters"
         :key="filter.query"
         :class="filter.query == store.currentSort ? 'active' : ''"
+        :disabled="isDisabled"
         @click="changeSort(filter.query)"
         >
         {{ filter.name }}

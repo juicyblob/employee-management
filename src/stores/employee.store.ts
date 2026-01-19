@@ -96,9 +96,6 @@ export const useEmployeeStore = defineStore('employee', () => {
             email: person.email,
             department: person.department
         })
-        .then(() => {
-            console.log('Сотрудник успешно добавлен!');
-        })
         .catch((err) => {
             console.error('Ошибка создания сотрудника: ' + err.message)
         });
@@ -106,9 +103,6 @@ export const useEmployeeStore = defineStore('employee', () => {
 
     async function deleteEmployee(id: number) {
         await axios.delete(`${API_ROUTES.employees}/${id}`)
-        .then(() => {
-            console.log('Сотрудник успешно удален');
-        })
         .catch((err) => {
             console.error('Ошибка удаления сотрудника: ' + err.message);
         });
@@ -116,9 +110,6 @@ export const useEmployeeStore = defineStore('employee', () => {
 
     async function updateEmployee(id: number, data: Record<string, string | number>) {
         await axios.put(`${API_ROUTES.employees}/${id}`, data)
-        .then(() => {
-            console.log('Данные сотрудника успешно изменены');
-        })
         .catch((err) => {
             console.error('Ошибка изменения данных сотрудника: ' + err.message);
         });

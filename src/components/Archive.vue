@@ -11,14 +11,19 @@ import { useRouter } from 'vue-router';
 import { useNotificationStore } from '../stores/notification.store';
 import { useEmployeeStore } from '../stores/employee.store';
 import Notification from './Notification.vue';
+import NoEmployees from './NoEmployees.vue';
 
 const storeArchive = useArchiveStore();
 const storeCategory = useCategoryStore();
 const storeNotification = useNotificationStore();
 const storeEmployee = useEmployeeStore();
+const noEmployees = ref<boolean>(false);
 const router = useRouter();
 const counter = computed(() => {
     if (storeCategory.categoryStats) {
+        if (storeCategory.categoryStats['archive'] == 0) {
+            noEmployees.value = true;
+        }
         return storeCategory.categoryStats['archive'];
     }
 });
@@ -31,6 +36,7 @@ const popUpMode = ref<ModalAction>();
 
 onMounted( async () => {
     await storeArchive.fetchEmployees();
+    await storeCategory.getCategoryCounters();
 });
 
 function resetData() {
@@ -116,11 +122,16 @@ async function popUpAction() {
             <div class="archive__head-counter">{{ counter }}</div>
         </div>
         <div class="archive__buttons">
-            <ButtonDefault text="Очистить архив" color="red" txt-color="white" @click="openConfirmClear('clear')" />
+            <ButtonDefault 
+            text="Очистить архив" 
+            color="red" 
+            txt-color="white"
+            :is-disabled="noEmployees"
+            @click="openConfirmClear('clear')" />
         </div>
         <div class="archive__employees">
-            <CategoryFilters mode="archive" />
-            <div class="archive__cards">
+            <CategoryFilters mode="archive" :is-disabled="noEmployees" />
+            <div v-if="!noEmployees" class="archive__cards">
                 <ArchiveCard 
                 v-for="employee in storeArchive.employees"
                 :key="employee.id"
@@ -133,6 +144,7 @@ async function popUpAction() {
                 @open-popup="popUpOpen"
                 />
             </div>
+            <NoEmployees v-else />
         </div>
     </div>
     <PopUpConfirm 

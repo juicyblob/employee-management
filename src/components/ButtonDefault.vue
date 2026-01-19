@@ -1,13 +1,14 @@
 <script setup lang="ts">
     type colorOption = 'blue' | 'yellow' | 'red';
     type textColor = 'white' | 'dark';
-    const { text, color, txtColor} = defineProps<{ text: string, color: colorOption, txtColor: textColor}>();
+    const { text, color, txtColor, isDisabled = false} = defineProps<{ text: string, color: colorOption, txtColor: textColor, isDisabled?: boolean}>();
 </script>
 
 <template>
     <button 
     class="default-button" 
-    :style="{'background-color': `var(--color-${color})`, 'color': `var(--color-${txtColor})`}"
+    :style="{'background-color': `var(--color-${!isDisabled ? color : 'gray'})`, 'color': `var(--color-${txtColor})`}"
+    :disabled="isDisabled"
     >
         {{ text }}
     </button>
@@ -27,6 +28,10 @@
         min-width: 140px;
         border-radius: 4px;
         transition: opacity .3s ease;
+
+        &:disabled:hover {
+            opacity: 1;
+        }
 
         &:hover {
             opacity: 0.85;

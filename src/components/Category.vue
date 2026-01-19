@@ -9,9 +9,12 @@ import CategoryHeader from './CategoryHeader.vue';
 import Employee from './Employee.vue';
 import Notification from './Notification.vue';
 import { useNotificationStore } from '../stores/notification.store';
+import { useCategoryStore } from '../stores/category.store';
+import NoEmployees from './NoEmployees.vue';
 
 const storeEmployee = useEmployeeStore();
 const storeNotification = useNotificationStore();
+const storeCategory = useCategoryStore();
 const route = useRoute();
 const router = useRouter();
 const showEmployeeDetails = ref<boolean>(false);
@@ -20,6 +23,7 @@ onMounted( async () => {
     const alias = route.path.replace('/employees/', '');
     await storeEmployee.fetchEmployees('all');
     await storeEmployee.getEmpoyeesByAlias(alias);
+    await storeCategory.getCategoryCounters();
 });
 
 onBeforeRouteUpdate((_to, _from, next) => {
@@ -29,6 +33,12 @@ onBeforeRouteUpdate((_to, _from, next) => {
 
 const alias = computed(() => {
     return route.path.replace('/employees/', '');
+});
+
+const noEmployees = computed(() => {
+    if (storeCategory.categoryStats) {
+        return storeCategory.categoryStats[alias.value] == 0;
+    }
 });
 
 watch(alias, async (newAlias) => {
@@ -50,12 +60,12 @@ function openAddForm() {
     <div class="category" v-if="!showEmployeeDetails">
         <CategoryHeader />
         <div class="category__buttons">
-            <Button text="Выгрузить в Excel" color="blue" txt-color="white" />
+            <Button text="Выгрузить в Excel" color="blue" txt-color="white" :is-disabled="noEmployees" />
             <Button text="Добавить сотрудника" color="yellow" txt-color="dark" @click="openAddForm" />
         </div>
         <div class="category__employees">
-            <CategoryFilters mode="category"/>
-            <div class="category__cards">
+            <CategoryFilters mode="category" :is-disabled="noEmployees" />
+            <div v-if="!noEmployees" class="category__cards">
                 <CategoryCard
                 v-for="employee in storeEmployee.categoryEmployees"
                 :key="employee.id"
@@ -67,6 +77,7 @@ function openAddForm() {
                 @select-employee="selectEmployee"
                 />
             </div>
+            <NoEmployees v-else />
         </div>
     </div>
     <Employee 
