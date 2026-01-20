@@ -51,6 +51,18 @@ export const router = createRouter({
           ]  
         },
         {
+            path: '/employees/search/:query?',
+            component: () => import('./views/MainView.vue'),
+            children: [
+                {
+                    path: '',
+                    component: () => import('./components/SearchPage.vue'),
+                    name: 'employee-search',
+                    props: true
+                }
+            ]
+        },
+        {
             path: '/:pathMatch(.*)*',
             component: () => import('./views/MainView.vue'),
             children: [
