@@ -42,9 +42,8 @@
                 salary: storeEmployee.selectEmployee.salary,
                 photo: storeEmployee.selectEmployee.photo,
                 email: storeEmployee.selectEmployee.email,
-                department: ''
+                department: department.value
             }
-            department.value = storeEmployee.selectEmployee.department;
         }
     }
 
@@ -118,7 +117,7 @@
                 }
                 setTimeout(() => {
                     loader.value = false;
-                    router.push({ name: 'employee-list', params: { alias: alias}});
+                    router.push({ name: 'employee-list', params: { alias: department.value }});
                 }, 600);
             });
             

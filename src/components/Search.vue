@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { nextTick, ref, useTemplateRef } from 'vue';
 import IconSearch from '../assets/svg/IconSearch.vue';
-import { onBeforeRouteLeave, onBeforeRouteUpdate, useRouter } from 'vue-router';
+import { onBeforeRouteLeave, useRouter } from 'vue-router';
 
 const isActive = ref<boolean>(false);
 const submitSearch = ref<boolean>(false);

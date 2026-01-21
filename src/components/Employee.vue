@@ -16,7 +16,8 @@ const router = useRouter();
 const popUpIsOpened = ref<boolean>(false);
 
 const emit = defineEmits<{
-    (e: 'backward'): void
+    (e: 'backward'): void,
+    (e: 'update-search'): void
 }>();
 
 function calcEmployeeExpirience(hireDate: string) {
@@ -53,9 +54,15 @@ function calcEmployeeExpirience(hireDate: string) {
 
 async function removeEmployee() {
     await storeEmployee.deleteEmployee(employee.id ?? 0);
-    const alias = route.params.alias;
     await storeEmployee.fetchEmployees('all');
-    await storeEmployee.getEmpoyeesByAlias(String(alias));
+    
+    if (route.name == 'employee-search') {
+        emit('update-search');
+    } else {
+        const alias = employee.department;
+        await storeEmployee.getEmpoyeesByAlias(alias);
+    }
+
     emit('backward');
     nextTick();
     storeNotification.showNotification(notifications.removed);
@@ -94,7 +101,7 @@ const employeeData = computed(() => {
 });
 
 function openEditForm() {
-    router.push({ name: 'employee-edit' });
+    router.push({ name: 'employee-edit', params: { alias: employee.department } });
 }
 
 function popUpOpen() {

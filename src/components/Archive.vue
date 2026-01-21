@@ -23,6 +23,8 @@ const counter = computed(() => {
     if (storeCategory.categoryStats) {
         if (storeCategory.categoryStats['archive'] == 0) {
             noEmployees.value = true;
+        } else {
+            noEmployees.value = false;
         }
         return storeCategory.categoryStats['archive'];
     }
