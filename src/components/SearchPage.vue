@@ -14,7 +14,7 @@ watch(() => query, (newQuery) => {
 
 const searchInfo = computed(() => {
     if (foundEmployees.value.length == 0) {
-        return `По запросу с${query}» ничего не найдено`;
+        return `По запросу «${query}» ничего не найдено`;
     } else {
         return `По запросу «${query}» найдено ${foundEmployees.value.length} совпадения`;
     }
