@@ -11,6 +11,7 @@ import Notification from './Notification.vue';
 import { useNotificationStore } from '../stores/notification.store';
 import { useCategoryStore } from '../stores/category.store';
 import NoEmployees from './NoEmployees.vue';
+import JsonExcel from "vue-json-excel3";
 
 const storeEmployee = useEmployeeStore();
 const storeNotification = useNotificationStore();
@@ -54,13 +55,40 @@ function openAddForm() {
     router.push({ name: 'employee-new' });
 }
 
+const excelFileName = computed(() => {
+    const alias = route.path.replace('/employees/', '');
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const year = String(today.getFullYear());
+    return `${alias}_${day}-${month}-${year}.xlsx`;
+});
+
+const excelFields = {
+    'Имя Фамилия': 'name',
+    'Должность': 'position',
+    'Ставка/мес': 'salary',
+    'Дата рождения': 'birthday',
+    'Возраст': 'age',
+    'Email': 'email',
+    'Дата создания':'created_at'
+}
+
+
 </script>
 
 <template>
     <div class="category" v-if="!showEmployeeDetails">
         <CategoryHeader />
         <div class="category__buttons">
+            <JsonExcel
+            :data="storeEmployee.categoryEmployees"
+            :fields="excelFields"
+            type="xlsx"
+            :name="excelFileName"
+            >
             <Button text="Выгрузить в Excel" color="blue" txt-color="white" :is-disabled="noEmployees" />
+            </JsonExcel>
             <Button text="Добавить сотрудника" color="yellow" txt-color="dark" @click="openAddForm" />
         </div>
         <div class="category__employees">
