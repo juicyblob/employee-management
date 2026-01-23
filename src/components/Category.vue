@@ -49,6 +49,7 @@ watch(alias, async (newAlias) => {
 async function selectEmployee(id: number) {
     await storeEmployee.getEmployeeById(id);
     showEmployeeDetails.value = true;
+    window.scrollTo({ top: 0, left: 0 });
 }
 
 function openAddForm() {
@@ -134,8 +135,32 @@ const excelFields = {
 
         &__cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(238px, 263px));
+            grid-template-columns: repeat(auto-fill, minmax(238px, 263px));
             gap: 22px;
+
+            @media (max-width: 1548px) {
+                grid-template-columns: repeat(auto-fill, minmax(238px, 242px));
+                gap: 20px;
+            }
+
+            @media (max-width: 1435px) {
+                grid-template-columns: repeat(auto-fill, minmax(224px, 232px));
+                gap: 18px;
+            }
+
+            @media (max-width: 1378px) {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 224px));
+                gap: 16px;
+            }
+
+            @media (max-width: 1330px) {
+                grid-template-columns: repeat(auto-fill, minmax(190px, 210px));
+            }
+
+            @media (max-width: 1260px) {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 200px));
+            }
+
         }
     }
 </style>

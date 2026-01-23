@@ -20,5 +20,6 @@
     .logo {
         display: block;
         text-decoration: none;
+        user-select: none;
     }
 </style>

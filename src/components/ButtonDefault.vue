@@ -28,6 +28,7 @@
         min-width: 140px;
         border-radius: 4px;
         transition: opacity .3s ease;
+        white-space: nowrap;
 
         &:disabled:hover {
             opacity: 1;

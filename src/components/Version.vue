@@ -13,5 +13,9 @@
         @media (max-width: 1280px) {
             font-size: 13px;
         }
+
+        @media (max-height: 646px) {
+            display: none;
+        }
     }
 </style>

@@ -191,11 +191,17 @@ function unlockScroll() {
             border-radius: 50%;
             overflow: hidden;
             background-color: var(--color-silver);
+            flex-shrink: 0;
 
             img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
+            }
+
+            @media (max-width: 1180px) {
+                width: 140px;
+                height: 140px;
             }
         }
 
@@ -205,10 +211,19 @@ function unlockScroll() {
                 font-size: 32px;
                 font-weight: 500;
                 margin-bottom: 10px;
+
+                @media (max-width: 1180px) {
+                    font-size: 26px;
+                    margin-bottom: 6px;
+                }
             }
             &-position {
                 font-size: 24px;
                 color: var(--color-gray);
+
+                @media (max-width: 1180px) {
+                    font-size: 20px;
+                }
             }
         }
 

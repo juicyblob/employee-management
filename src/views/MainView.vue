@@ -52,7 +52,6 @@
 
             &-body {
                  padding: 137px 60px 80px 60px;
-                 height: 100%;
             }
         }
     }
