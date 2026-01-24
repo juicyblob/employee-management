@@ -24,7 +24,7 @@
         birthday: '',
         position: '',
         salary: 0,
-        photo: '',
+        photo: 'https://onlyketch.github.io/ems_data/images/person.png',
         email: '',
         department: String(department.value),
     });
@@ -82,6 +82,10 @@
         const emailRegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegExp.test(employeeData.value.email)) {
             errors.value.email = 'Неккоректный email';
+        }
+        // Отдел
+        if (employeeData.value.department == 'all') {
+            errors.value.department = 'Не выбран отдел';
         }
 
         return Object.keys(errors.value).length === 0;
@@ -248,7 +252,13 @@
         </div>
         <div class="employee__form-row">
             <div class="employee__form-group">
-                <label for="employee_department" class="employee__form-label">Отдел</label>
+                <label for="employee_department" 
+                class="employee__form-label"
+                :class="errors.department ? 'error': ''"
+                >
+                Отдел
+                <div class="employee__form-error">!</div>
+                </label>
                 <select v-model="department" id="employee_department" class="employee__form-select">
                     <option value="all">Не указан</option>
                     <option value="heads">Руководители</option>

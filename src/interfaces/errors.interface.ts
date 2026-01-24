@@ -4,5 +4,6 @@ export interface FormErrors {
     position?: string,
     salary?: string,
     photo?: string,
-    email?: string
+    email?: string,
+    department?: string
 }
