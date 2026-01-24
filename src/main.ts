@@ -1,3 +1,9 @@
+/**
+ * Employees Management System
+ * © 2026 Андрей Самойленко
+ * All rights reserved.
+ */
+
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
