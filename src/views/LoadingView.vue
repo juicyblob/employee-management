@@ -7,6 +7,7 @@ import { useRouter } from 'vue-router';
 
 let userId = localStorage.getItem(USER_ID_KEY);
 const router = useRouter();
+const isDesktop = window.innerWidth >= 1024;
 
 async function checkEmployeesData() {
     const store = useEmployeeStore();
@@ -28,7 +29,9 @@ async function checkEmployeesData() {
     }
 }
 
-checkEmployeesData();
+if (isDesktop) {
+    checkEmployeesData();
+}
 
 
 </script>
@@ -37,7 +40,15 @@ checkEmployeesData();
     <div class="loading-box">
         <div class="loading-box__content">
             <IconLogo />
-            <VueSpinner size="30" color="white" />
+            <VueSpinner v-if="isDesktop" size="30" color="white" />
+            <div v-else class="loading-box__notification">
+                <h2 class="loading-box__notification-title">
+                    Интерфейс недоступен на&nbsp;данном разрешении
+                </h2>
+                <p class="loading-box__notification-text">
+                Система предназначена для работы на&nbsp;экранах шириной от&nbsp;1024px. Пожалуйста, откройте приложение на&nbsp;ноутбуке или компьютере.
+                </p>
+            </div>
         </div>
     </div>
 </template>
@@ -55,9 +66,26 @@ checkEmployeesData();
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
+            padding: 0 24px;
 
             .vue-spinner {
                 margin: 32px auto 0 auto;
+            }
+        }
+
+        &__notification {
+            text-align: center;
+            margin-top: 32px;
+            color: var(--color-white);
+
+            &-title {
+                margin-bottom: 24px;
+            }
+
+            &-text {
+                font-size: 18px;
+                line-height: 1.7rem;
             }
         }
     }
