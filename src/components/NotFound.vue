@@ -30,7 +30,7 @@ function goToAll() {
         position: relative;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -60%);
+        transform: translate(-50%, 30%);
 
         &__code {
             font-weight: 700;
