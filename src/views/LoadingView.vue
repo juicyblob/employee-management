@@ -5,7 +5,7 @@ import { useEmployeeStore } from '../stores/employee.store';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+const isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 async function checkEmployeesData() {
     const store = useEmployeeStore();
